@@ -6,12 +6,6 @@
 php composer.phar require "shopiolabs/shopioapi":"dev-master"
 ```
 
-## Run tests with following command
-
-```
-./vendor/bin/phpunit
-```
-
 ## Usage
 
 ```php
@@ -39,4 +33,10 @@ $updatedBrand = $shopioClient->call('brands/'.$newBrand['id'], 'PUT', $data);
 
 //Delete a brand
 $shopioClient->call('brands/'.$updatedBrand['id'], 'DELETE');
+```
+
+## Run Tests
+
+```
+./vendor/bin/phpunit
 ```
