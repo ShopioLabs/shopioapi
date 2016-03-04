@@ -1,0 +1,21 @@
+{
+    "name": "ShopioLabs/ShopioApi",
+    "description": "Shopio Rest Api Client",
+    "license": "MIT",
+    "keywords": ["shopio"],
+    "authors": [
+        {
+            "name": "Farid Movsumov",
+            "email": "faridmovsumov@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.1",
+        "phpunit/phpunit": "^4.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "ShopioLabs\\ShopioApi\\": "src"
+        }
+    }
+}
