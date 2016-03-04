@@ -1,6 +1,7 @@
 {
     "name": "shopiolabs/shopioapi",
     "description": "Shopio Rest Api Client",
+    "version": "1.0.0",
     "license": "MIT",
     "keywords": ["shopio"],
     "authors": [
