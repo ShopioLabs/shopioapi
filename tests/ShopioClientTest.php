@@ -8,7 +8,7 @@ require_once 'TestCase.php';
 class ShopioClientTest extends TestCase
 {
     public function testCallException(){
-        $shopioClient = new ShopioClient('subdomain.myshopio.sg', 'invalid_token', ShopioClient::PROTOCOL_HTTP);
+        $shopioClient = new ShopioClient('movsumio.myshopio.com', 'invalid_token');
         try{
             $shopioClient->call('brands', 'GET');
             $this->fail('Exception must be thrown');
