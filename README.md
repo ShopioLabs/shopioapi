@@ -2,6 +2,8 @@
 
 ## Installation
 
+### Composer
+
 ```
 php composer.phar require "shopiolabs/shopioapi":"dev-master"
 ```
