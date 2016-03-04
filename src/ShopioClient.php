@@ -104,15 +104,19 @@ class ShopioClient extends AbstractShopioClient
      *
      * @param string $entity
      * @param string $method
+     * @param array $data
      * @param array $options
-     * @throws InvalidGrantException
-     * @throws \InvalidArgumentException
-     * @throws ShopioClientException
      * @return array
+     * @throws InvalidGrantException
+     * @throws ShopioClientException
      */
-    public function call($entity, $method, $options = []){
+    public function call($entity, $method, $data = [], $options = []){
 
         $uri = $this->getApiProtocol() . $this->getShopSubdomain() . "/api/v2/$entity";
+
+        if(!empty($data)){
+            $options['body'] = json_encode($data);
+        }
 
         try{
             switch (strtoupper($method)) {

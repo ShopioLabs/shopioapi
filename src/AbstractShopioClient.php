@@ -62,13 +62,47 @@ abstract class AbstractShopioClient {
 
         $errorMessage = '';
         $response = json_decode($requestException->getResponse()->getBody()->getContents(), true);
+
+        if(isset($response['message'])){
+            $errorMessage .= $response['message'];
+            $errorMessage .= $this->getDetailedErrorMessage($response);
+        }
         if(isset($response['error_description'])){
             $errorMessage .= $response['error_description'];
         }
         if(isset($response['error'])){
             $errorMessage .= ' ['.$response['error'].']';
         }
+        if(isset($response['code'])){
+            $errorMessage .= ' code: '.$response['code'];
+        }
 
         return $errorMessage;
+    }
+
+
+    /**
+     * @param $response
+     * @return null|string
+     */
+    private function getDetailedErrorMessage($response)
+    {
+        if (!isset($response["message"])) {
+            return '';
+        }
+        $messages = [];
+        if (isset($response["errors"]) && !empty($response["errors"])) {
+            $errors = $response["errors"];
+            foreach ($errors as $error) {
+                if (isset($error["field"]) && isset($error["message"])) {
+                    $messages[] = $error["field"] . ":" . $error["message"];
+                }
+            }
+        }
+        if(empty($messages)){
+            return '';
+        }
+
+        return ' Details: '.implode(' ', $messages);
     }
 }
