@@ -7,17 +7,7 @@ use GuzzleHttp\Exception\RequestException;
  * Class ShopioAuthClient
  * @package ShopioLabs\ShopioApi
  */
-class ShopioAuthClient {
-
-    /**
-     * @var string http protocol
-     */
-    const PROTOCOL_HTTP = 'http://';
-
-    /**
-     * @var string https protocol
-     */
-    const PROTOCOL_HTTPS = 'https://';
+class ShopioAuthClient extends AbstractShopioClient {
 
     /**
      * @var string
@@ -33,11 +23,6 @@ class ShopioAuthClient {
      * @var string
      */
     private $shopSubdomain;
-
-    /**
-     * @var string
-     */
-    private $apiProtocol;
 
     /**
      * @var array
@@ -170,33 +155,6 @@ class ShopioAuthClient {
     }
 
     /**
-     * @return string
-     */
-    public function getApiProtocol()
-    {
-        return $this->apiProtocol;
-    }
-
-    /**
-     * @return array
-     */
-    public static function getValidApiProtocols(){
-        return [self::PROTOCOL_HTTP, self::PROTOCOL_HTTPS];
-    }
-
-    /**
-     * @param string $apiProtocol
-     */
-    public function setApiProtocol($apiProtocol)
-    {
-        if(!in_array($apiProtocol, static::getValidApiProtocols(), true)){
-            throw new \InvalidArgumentException('Invalid api protocol');
-        }
-
-        $this->apiProtocol = $apiProtocol;
-    }
-
-    /**
      * @return array
      */
     public function getTokenInfo()
@@ -210,27 +168,5 @@ class ShopioAuthClient {
     public function setTokenInfo($tokenInfo)
     {
         $this->tokenInfo = $tokenInfo;
-    }
-
-    /**
-     * Gives human readable error message
-     * @param RequestException $requestException
-     * @return string
-     */
-    private function getHumanReadableErrorMessage(RequestException $requestException){
-        if(!$requestException->hasResponse()){
-            throw $requestException;
-        }
-
-        $errorMessage = '';
-        $response = json_decode($requestException->getResponse()->getBody()->getContents(), true);
-        if(isset($response['error_description'])){
-            $errorMessage .= $response['error_description'];
-        }
-        if(isset($response['error'])){
-            $errorMessage .= ' ['.$response['error'].']';
-        }
-
-        return $errorMessage;
     }
 }

@@ -1,23 +1,14 @@
 <?php namespace ShopioLabs\ShopioApi;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 
 /**
  * Class ShopioClient
  * @package ShopioLabs\ShopioApi
  */
-class ShopioClient
+class ShopioClient extends AbstractShopioClient
 {
-    /**
-     * @var string http protocol
-     */
-    const PROTOCOL_HTTP = 'http://';
-
-    /**
-     * @var string https protocol
-     */
-    const PROTOCOL_HTTPS = 'https://';
-
     /**
      * @var string
      */
@@ -32,11 +23,6 @@ class ShopioClient
      * @var string
      */
     private $shopSubdomain;
-
-    /**
-     * @var string
-     */
-    private $apiProtocol;
 
     /**
      * @param $shopSubdomain
@@ -108,33 +94,6 @@ class ShopioClient
     }
 
     /**
-     * @return string
-     */
-    public function getApiProtocol()
-    {
-        return $this->apiProtocol;
-    }
-
-    /**
-     * @param string $apiProtocol
-     */
-    public function setApiProtocol($apiProtocol)
-    {
-        if(!in_array($apiProtocol, static::getValidApiProtocols(), true)){
-            throw new \InvalidArgumentException('Invalid api protocol');
-        }
-
-        $this->apiProtocol = $apiProtocol;
-    }
-
-    /**
-     * @return array
-     */
-    public static function getValidApiProtocols(){
-        return [self::PROTOCOL_HTTP, self::PROTOCOL_HTTPS];
-    }
-
-    /**
      * Makes api calls
      *
      * create brand example:
@@ -148,27 +107,32 @@ class ShopioClient
      * @param array $options
      * @throws InvalidGrantException
      * @throws \InvalidArgumentException
+     * @throws ShopioClientException
      * @return array
      */
     public function call($entity, $method, $options = []){
 
         $uri = $this->getApiProtocol() . $this->getShopSubdomain() . "/api/v2/$entity";
 
-        switch (strtoupper($method)) {
-            case "GET":
-                $response = $this->getGuzzleClient()->get($uri, $options);
-                break;
-            case "POST":
-                $response = $this->getGuzzleClient()->post($uri, $options);
-                break;
-            case "PUT":
-                $response = $this->getGuzzleClient()->put($uri, $options);
-                break;
-            case "DELETE":
-                $response = $this->getGuzzleClient()->delete($uri, $options);
-                break;
-            default:
-                throw new \InvalidArgumentException("Unsupported HTTP method");
+        try{
+            switch (strtoupper($method)) {
+                case "GET":
+                    $response = $this->getGuzzleClient()->get($uri, $options);
+                    break;
+                case "POST":
+                    $response = $this->getGuzzleClient()->post($uri, $options);
+                    break;
+                case "PUT":
+                    $response = $this->getGuzzleClient()->put($uri, $options);
+                    break;
+                case "DELETE":
+                    $response = $this->getGuzzleClient()->delete($uri, $options);
+                    break;
+                default:
+                    throw new \InvalidArgumentException("Unsupported HTTP method");
+            }
+        }catch (RequestException $requestException){
+            throw new ShopioClientException($this->getHumanReadableErrorMessage($requestException));
         }
 
         $response = json_decode($response->getBody(), true);
