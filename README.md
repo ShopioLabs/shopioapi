@@ -72,17 +72,17 @@ $shopioClient = new ShopioClient('example.myshopio.com', $accessToken);
 //List brands
 $brands = $shopioClient->call('brands', 'GET');
 
-//Get single brand
+//Get a single brand
 $brand = $shopioClient->call('brands/'.$brands[0]['id'], 'GET');
 
-//Create new brand
+//Create a new brand
 $data = [
     'title' => 'Test',
     'status' => '1'
 ];
 $newBrand = $shopioClient->call('brands', 'POST', $data);
 
-//Update Brand
+//Update a brand
 $data = [
     'title' => 'test2',
 ];
