@@ -1,6 +1,8 @@
 # Shopio Rest Api Client
 
 [![Build Status](https://travis-ci.org/ShopioLabs/shopioapi.svg?branch=master)](https://travis-ci.org/ShopioLabs/shopioapi)
+[![Total Downloads](https://poser.pugx.org/shopiolabs/shopioapi/downloads)](https://packagist.org/packages/shopiolabs/shopioapi)
+[![License](https://poser.pugx.org/shopiolabs/shopioapi/license)](https://packagist.org/packages/shopiolabs/shopioapi)
 
 ## Installation
 ```
