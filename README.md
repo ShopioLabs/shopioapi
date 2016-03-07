@@ -67,7 +67,7 @@ if (isset($_GET['code'])) {
 ### Client Usage
 ```php
 $accessToken = 'youraccesstokenhere';
-$shopioClient = new ShopioClient('subdomain.myshopio.sg', $accessToken);
+$shopioClient = new ShopioClient('example.myshopio.com', $accessToken);
 
 //List brands
 $brands = $shopioClient->call('brands', 'GET');
