@@ -59,14 +59,14 @@ class ShopioAuthClient extends AbstractShopioClient {
      * Gives an access_token information
      * @param $code
      * @param $scope
+     * @param $redirectUrl
      * @return string
      * @throws ShopioClientException
-     * @throws RequestException
      */
-    public function getAccessToken($code, $scope){
+    public function getAccessToken($code, $scope, $redirectUrl){
         $apiKey = $this->getApiKey();
         $secret = $this->getSecret();
-        $url = $this->getShopDomain()."/oauth/v2/token?client_id=$apiKey&client_secret=$secret&grant_type=authorization_code&&code=$code";
+        $url = $this->getShopDomain()."/oauth/v2/token?client_id=$apiKey&client_secret=$secret&grant_type=authorization_code&&code=$code&redirect_uri=$redirectUrl";
 
         try {
             $client = new Client();
