@@ -1,5 +1,7 @@
 # Shopio Rest Api Client
 
+[![Build Status](https://travis-ci.org/ShopioLabs/shopioapi.svg?branch=master)](https://travis-ci.org/ShopioLabs/shopioapi)
+
 ## Installation
 ```
 php composer require "shopiolabs/shopioapi":"dev-master"
