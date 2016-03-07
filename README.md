@@ -7,7 +7,7 @@ php composer require "shopiolabs/shopioapi":"dev-master"
 
 ## Getting Started
 
-### Authentication
+### Authentication Example
 ```php
 <?php
 
@@ -64,7 +64,7 @@ if (isset($_GET['code'])) {
 </form>
 ```
 
-### Client Usage
+### Client Usage Example
 ```php
 $accessToken = 'YOUR_ACCESS_TOKEN_HERE';
 $shopioClient = new ShopioClient('example.myshopio.com', $accessToken);
