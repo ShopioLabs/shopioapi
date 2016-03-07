@@ -66,7 +66,7 @@ if (isset($_GET['code'])) {
 
 ### Client Usage
 ```php
-$accessToken = 'youraccesstokenhere';
+$accessToken = 'YOUR_ACCESS_TOKEN_HERE';
 $shopioClient = new ShopioClient('example.myshopio.com', $accessToken);
 
 //List brands
