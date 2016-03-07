@@ -1,0 +1,13 @@
+language: php
+php:
+  - '5.5'
+
+before_install:
+  - composer self-update
+
+script:
+  - ./vendor/bin/phpunit
+
+notifications:
+  email:
+    - faridmovsumov@gmail.com
