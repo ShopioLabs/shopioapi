@@ -16,7 +16,7 @@ class ShopioAuthClientTest extends TestCase
     public function testGetAccessTokenException(){
         $shopioAuthClient = new ShopioAuthClient('movsumio.myshopio.com', '12345', 'abcdefg');
         try{
-            $shopioAuthClient->getAccessToken('test', 'product_write page_write article_write category_write brand_write');
+            $shopioAuthClient->getAccessToken('test', 'product_write page_write article_write category_write brand_write', 'http://test.shopioapps.com');
             $this->fail('Exception must be thrown');
         }catch (ShopioClientException $shopioClientException){
         	$this->assertEquals('The client credentials are invalid [invalid_client]', $shopioClientException->getMessage());
