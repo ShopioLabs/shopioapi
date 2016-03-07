@@ -7,7 +7,7 @@ php composer.phar require "shopiolabs/shopioapi":"dev-master"
 
 ## Usage
 
-# Client Usage Example
+### Client Usage Example
 ```php
 $accessToken = 'youraccesstokenhere';
 $shopioClient = new ShopioClient('subdomain.myshopio.sg', $accessToken);
@@ -35,7 +35,7 @@ $updatedBrand = $shopioClient->call('brands/'.$newBrand['id'], 'PUT', $data);
 $shopioClient->call('brands/'.$updatedBrand['id'], 'DELETE');
 ```
 
-# Authentication Example
+### Authentication Example
 ```php
 <?php
 
