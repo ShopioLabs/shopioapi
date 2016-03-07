@@ -62,7 +62,7 @@ if (isset($_GET['code'])) {
         <input name="commit" type="submit" value="Install"/>
     </p>
 </form>
-``
+```
 
 ### Client Usage
 ```php
