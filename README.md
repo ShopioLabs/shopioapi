@@ -16,8 +16,8 @@ use ShopioLabs\ShopioApi\ShopioClient;
 
 require_once '../vendor/autoload.php';
 
-$apiKey = '********YOUR_API_KEY_HERE*********';
-$secret = '********YOUR_SECRET_HERE**********';
+$apiKey = 'YOUR_API_KEY_HERE';
+$secret = 'YOUR_SECRET_HERE';
 $scope = "brand_write product_read";
 
 session_start();
