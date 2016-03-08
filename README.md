@@ -90,8 +90,15 @@ $updatedBrand = $shopioClient->call('brands/'.$newBrand['id'], 'PUT', $data);
 $shopioClient->call('brands/'.$updatedBrand['id'], 'DELETE');
 ````
 
-## Run Tests
+## Tests
+
+Run tests with the following command in root directory.
 
 ```
 ./vendor/bin/phpunit
 ```
+
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
