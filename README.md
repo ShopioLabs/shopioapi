@@ -6,7 +6,7 @@
 
 ## Installation
 ```
-php composer require "shopiolabs/shopioapi":"dev-master"
+composer require "shopiolabs/shopioapi":"dev-master"
 ```
 
 ## Getting Started
