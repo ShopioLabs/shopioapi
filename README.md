@@ -39,16 +39,10 @@ if (isset($_GET['code'])) {
     exit;
 } elseif (isset($_POST['shop'])) {
     // get the URL to the current page
-    $pageURL = 'http';
-    if ($_SERVER["HTTPS"] == "on") {
-        $pageURL .= "s";
-    }
-    $pageURL .= "://";
-    if ($_SERVER["SERVER_PORT"] != "80") {
-        $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["SCRIPT_NAME"];
-    } else {
-        $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["SCRIPT_NAME"];
-    }
+    $pageURL = $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
+    $pageURL = $_SERVER["SERVER_PORT"] != "80" ? $pageURL.":".$_SERVER["SERVER_PORT"] : $pageURL;
+    $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER['SCRIPT_NAME'];
+
     $_SESSION['shop'] = $_POST['shop'];
     $_SESSION['page_url'] = $pageURL;
 
