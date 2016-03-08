@@ -5,8 +5,8 @@
 [![License](https://poser.pugx.org/shopiolabs/shopioapi/license)](https://packagist.org/packages/shopiolabs/shopioapi)
 
 ## Installation
-```
-composer require "shopiolabs/shopioapi":"dev-master"
+```bash
+$ composer require "shopiolabs/shopioapi":"dev-master"
 ```
 
 ## Getting Started
@@ -94,10 +94,13 @@ $shopioClient->call('brands/'.$updatedBrand['id'], 'DELETE');
 
 Run tests with the following command in root directory.
 
-```
-./vendor/bin/phpunit
+```bash
+$ ./vendor/bin/phpunit
 ```
 
+## Contributing
+
+Contributions are welcome and will be fully credited. Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
 
 ## License
 
