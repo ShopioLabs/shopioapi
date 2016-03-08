@@ -100,7 +100,7 @@ $ ./vendor/bin/phpunit
 
 ## Contributing
 
-Contributions are welcome and will be fully credited. Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## License
 
