@@ -27,7 +27,7 @@ $scope = "brand_write product_read";
 session_start();
 
 if (isset($_GET['code'])) {
-    $shopioAuthClient = new ShopioAuthClient($_SESSION['shop'], $apiKey, $secret, ShopioClient::PROTOCOL_HTTP);
+    $shopioAuthClient = new ShopioAuthClient($_SESSION['shop'], $apiKey, $secret);
     $accessToken = $shopioAuthClient->getAccessToken($_GET['code'], $scope, $_SESSION['page_url']);
     //Save access_token
 } elseif (isset($_POST['shop'])) {
@@ -39,7 +39,7 @@ if (isset($_GET['code'])) {
     $_SESSION['shop'] = $_POST['shop'];
     $_SESSION['page_url'] = $pageURL;
 
-    $shopioAuthClient = new ShopioAuthClient($_SESSION['shop'], $apiKey, $secret, ShopioClient::PROTOCOL_HTTP);
+    $shopioAuthClient = new ShopioAuthClient($_SESSION['shop'], $apiKey, $secret);
     $authorizeUrl = $shopioAuthClient->getAuthorizeUrl($scope, $pageURL);
     header("Location: $authorizeUrl");exit;
 }
