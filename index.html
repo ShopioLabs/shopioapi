@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Shopio Api Client by ShopioLabs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Shopio Api Client</h1>
+      <h2 class="project-tagline">Shopio Rest Api Client</h2>
+      <a href="https://github.com/ShopioLabs/shopioapi" class="btn">View on GitHub</a>
+      <a href="https://github.com/ShopioLabs/shopioapi/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/ShopioLabs/shopioapi/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="shopio-rest-api-client" class="anchor" href="#shopio-rest-api-client" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shopio Rest Api Client</h1>
+
+<p><a href="https://travis-ci.org/ShopioLabs/shopioapi"><img src="https://travis-ci.org/ShopioLabs/shopioapi.svg?branch=master" alt="Build Status"></a>
+<a href="https://packagist.org/packages/shopiolabs/shopioapi"><img src="https://poser.pugx.org/shopiolabs/shopioapi/downloads" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/shopiolabs/shopioapi"><img src="https://poser.pugx.org/shopiolabs/shopioapi/license" alt="License"></a></p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<div class="highlight highlight-source-shell"><pre>$ composer require <span class="pl-s"><span class="pl-pds">"</span>shopiolabs/shopioapi<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>dev-master<span class="pl-pds">"</span></span></pre></div>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<h3>
+<a id="authentication-example" class="anchor" href="#authentication-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authentication Example</h3>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s1"></span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">ShopioLabs\ShopioApi\ShopioAuthClient</span>;</span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">ShopioLabs\ShopioApi\ShopioClient</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">require_once</span> <span class="pl-s"><span class="pl-pds">'</span>../vendor/autoload.php<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$apiKey</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>YOUR_API_KEY_HERE<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"><span class="pl-smi">$secret</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>YOUR_SECRET_HERE<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"><span class="pl-smi">$scope</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>brand_write product_read<span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">session_start</span>();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">if</span> (<span class="pl-c1">isset</span>(<span class="pl-smi">$_GET</span>[<span class="pl-s"><span class="pl-pds">'</span>code<span class="pl-pds">'</span></span>])) {</span>
+<span class="pl-s1">    <span class="pl-smi">$shopioAuthClient</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">ShopioAuthClient</span>(<span class="pl-smi">$_SESSION</span>[<span class="pl-s"><span class="pl-pds">'</span>shop<span class="pl-pds">'</span></span>], <span class="pl-smi">$apiKey</span>, <span class="pl-smi">$secret</span>, <span class="pl-c1">ShopioClient</span><span class="pl-k">::</span><span class="pl-c1">PROTOCOL_HTTP</span>);</span>
+<span class="pl-s1">    <span class="pl-smi">$accessToken</span> <span class="pl-k">=</span> <span class="pl-smi">$shopioAuthClient</span><span class="pl-k">-&gt;</span>getAccessToken(<span class="pl-smi">$_GET</span>[<span class="pl-s"><span class="pl-pds">'</span>code<span class="pl-pds">'</span></span>], <span class="pl-smi">$scope</span>, <span class="pl-smi">$_SESSION</span>[<span class="pl-s"><span class="pl-pds">'</span>page_url<span class="pl-pds">'</span></span>]);</span>
+<span class="pl-s1">    <span class="pl-smi">$shopioClient</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">ShopioClient</span>(<span class="pl-smi">$_SESSION</span>[<span class="pl-s"><span class="pl-pds">'</span>shop<span class="pl-pds">'</span></span>], <span class="pl-smi">$accessToken</span>, <span class="pl-c1">ShopioClient</span><span class="pl-k">::</span><span class="pl-c1">PROTOCOL_HTTP</span>);</span>
+<span class="pl-s1">    <span class="pl-c1">session_unset</span>();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-c">//List all brands</span></span>
+<span class="pl-s1">    <span class="pl-smi">$brands</span> <span class="pl-k">=</span> <span class="pl-smi">$shopioClient</span><span class="pl-k">-&gt;</span>call(<span class="pl-s"><span class="pl-pds">'</span>brands<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>GET<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;pre&gt;<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1">    <span class="pl-c1">print_r</span>(<span class="pl-smi">$brands</span>);</span>
+<span class="pl-s1">    <span class="pl-k">exit</span>;</span>
+<span class="pl-s1">} <span class="pl-k">elseif</span> (<span class="pl-c1">isset</span>(<span class="pl-smi">$_POST</span>[<span class="pl-s"><span class="pl-pds">'</span>shop<span class="pl-pds">'</span></span>])) {</span>
+<span class="pl-s1">    <span class="pl-c">// get the URL to the current page</span></span>
+<span class="pl-s1">    <span class="pl-smi">$pageURL</span> <span class="pl-k">=</span> <span class="pl-smi">$_SERVER</span>[<span class="pl-s"><span class="pl-pds">'</span>HTTPS<span class="pl-pds">'</span></span>] <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">'</span>on<span class="pl-pds">'</span></span> ? <span class="pl-s"><span class="pl-pds">'</span>https://<span class="pl-pds">'</span></span> : <span class="pl-s"><span class="pl-pds">'</span>http://<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1">    <span class="pl-smi">$pageURL</span> <span class="pl-k">=</span> <span class="pl-smi">$_SERVER</span>[<span class="pl-s"><span class="pl-pds">"</span>SERVER_PORT<span class="pl-pds">"</span></span>] <span class="pl-k">!</span><span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>80<span class="pl-pds">"</span></span> ? <span class="pl-smi">$pageURL</span><span class="pl-k">.</span><span class="pl-s"><span class="pl-pds">"</span>:<span class="pl-pds">"</span></span><span class="pl-k">.</span><span class="pl-smi">$_SERVER</span>[<span class="pl-s"><span class="pl-pds">"</span>SERVER_PORT<span class="pl-pds">"</span></span>] : <span class="pl-smi">$pageURL</span>;</span>
+<span class="pl-s1">    <span class="pl-smi">$pageURL</span> <span class="pl-k">.=</span> <span class="pl-smi">$_SERVER</span>[<span class="pl-s"><span class="pl-pds">"</span>SERVER_NAME<span class="pl-pds">"</span></span>]<span class="pl-k">.</span><span class="pl-smi">$_SERVER</span>[<span class="pl-s"><span class="pl-pds">'</span>SCRIPT_NAME<span class="pl-pds">'</span></span>];</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-smi">$_SESSION</span>[<span class="pl-s"><span class="pl-pds">'</span>shop<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-smi">$_POST</span>[<span class="pl-s"><span class="pl-pds">'</span>shop<span class="pl-pds">'</span></span>];</span>
+<span class="pl-s1">    <span class="pl-smi">$_SESSION</span>[<span class="pl-s"><span class="pl-pds">'</span>page_url<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-smi">$pageURL</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-smi">$shopioAuthClient</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">ShopioAuthClient</span>(<span class="pl-smi">$_SESSION</span>[<span class="pl-s"><span class="pl-pds">'</span>shop<span class="pl-pds">'</span></span>], <span class="pl-smi">$apiKey</span>, <span class="pl-smi">$secret</span>, <span class="pl-c1">ShopioClient</span><span class="pl-k">::</span><span class="pl-c1">PROTOCOL_HTTP</span>);</span>
+<span class="pl-s1">    <span class="pl-smi">$authorizeUrl</span> <span class="pl-k">=</span> <span class="pl-smi">$shopioAuthClient</span><span class="pl-k">-&gt;</span>getAuthorizeUrl(<span class="pl-smi">$scope</span>, <span class="pl-smi">$pageURL</span>);</span>
+<span class="pl-s1">    <span class="pl-c1">header</span>(<span class="pl-s"><span class="pl-pds">"</span>Location: <span class="pl-smi">$authorizeUrl</span><span class="pl-pds">"</span></span>);</span>
+<span class="pl-s1">    <span class="pl-k">exit</span>;</span>
+<span class="pl-s1">}</span>
+<span class="pl-s1"></span><span class="pl-pse"><span class="pl-s1">?</span>&gt;</span>
+
+&lt;<span class="pl-ent">form</span> <span class="pl-e">action</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> <span class="pl-e">method</span>=<span class="pl-s"><span class="pl-pds">"</span>post<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">label</span> <span class="pl-e">for</span>=<span class="pl-s"><span class="pl-pds">'</span>shop<span class="pl-pds">'</span></span>&gt;&lt;<span class="pl-ent">strong</span>&gt;Shop Subdomain&lt;/<span class="pl-ent">strong</span>&gt;&lt;/<span class="pl-ent">label</span>&gt;
+    &lt;<span class="pl-ent">p</span>&gt;
+        &lt;<span class="pl-ent">input</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>shop<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>shop<span class="pl-pds">"</span></span> <span class="pl-e">size</span>=<span class="pl-s"><span class="pl-pds">"</span>45<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> <span class="pl-e">placeholder</span>=<span class="pl-s"><span class="pl-pds">"</span>example.myshopio.com<span class="pl-pds">"</span></span>/&gt;
+        &lt;<span class="pl-ent">input</span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>commit<span class="pl-pds">"</span></span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>submit<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>Install<span class="pl-pds">"</span></span>/&gt;
+    &lt;/<span class="pl-ent">p</span>&gt;
+&lt;/<span class="pl-ent">form</span>&gt;</pre></div>
+
+<h3>
+<a id="client-usage-example" class="anchor" href="#client-usage-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Client Usage Example</h3>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$accessToken</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>YOUR_ACCESS_TOKEN_HERE<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"><span class="pl-smi">$shopioClient</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">ShopioClient</span>(<span class="pl-s"><span class="pl-pds">'</span>example.myshopio.com<span class="pl-pds">'</span></span>, <span class="pl-smi">$accessToken</span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">//List brands</span></span>
+<span class="pl-s1"><span class="pl-smi">$brands</span> <span class="pl-k">=</span> <span class="pl-smi">$shopioClient</span><span class="pl-k">-&gt;</span>call(<span class="pl-s"><span class="pl-pds">'</span>brands<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>GET<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">//Get a single brand</span></span>
+<span class="pl-s1"><span class="pl-smi">$brand</span> <span class="pl-k">=</span> <span class="pl-smi">$shopioClient</span><span class="pl-k">-&gt;</span>call(<span class="pl-s"><span class="pl-pds">'</span>brands/<span class="pl-pds">'</span></span><span class="pl-k">.</span><span class="pl-smi">$brands</span>[<span class="pl-c1">0</span>][<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>], <span class="pl-s"><span class="pl-pds">'</span>GET<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">//Create a new brand</span></span>
+<span class="pl-s1"><span class="pl-smi">$data</span> <span class="pl-k">=</span> [</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>title<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>Test<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>status<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>1<span class="pl-pds">'</span></span></span>
+<span class="pl-s1">];</span>
+<span class="pl-s1"><span class="pl-smi">$newBrand</span> <span class="pl-k">=</span> <span class="pl-smi">$shopioClient</span><span class="pl-k">-&gt;</span>call(<span class="pl-s"><span class="pl-pds">'</span>brands<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>POST<span class="pl-pds">'</span></span>, <span class="pl-smi">$data</span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">//Update a brand</span></span>
+<span class="pl-s1"><span class="pl-smi">$data</span> <span class="pl-k">=</span> [</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>title<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>test2<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">];</span>
+<span class="pl-s1"><span class="pl-smi">$updatedBrand</span> <span class="pl-k">=</span> <span class="pl-smi">$shopioClient</span><span class="pl-k">-&gt;</span>call(<span class="pl-s"><span class="pl-pds">'</span>brands/<span class="pl-pds">'</span></span><span class="pl-k">.</span><span class="pl-smi">$newBrand</span>[<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>], <span class="pl-s"><span class="pl-pds">'</span>PUT<span class="pl-pds">'</span></span>, <span class="pl-smi">$data</span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">//Delete a brand</span></span>
+<span class="pl-s1"><span class="pl-smi">$shopioClient</span><span class="pl-k">-&gt;</span>call(<span class="pl-s"><span class="pl-pds">'</span>brands/<span class="pl-pds">'</span></span><span class="pl-k">.</span><span class="pl-smi">$updatedBrand</span>[<span class="pl-s"><span class="pl-pds">'</span>id<span class="pl-pds">'</span></span>], <span class="pl-s"><span class="pl-pds">'</span><span class="pl-s1"><span class="pl-k">DELETE</span></span><span class="pl-pds">'</span></span>);</span></pre></div>
+
+<h2>
+<a id="tests" class="anchor" href="#tests" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tests</h2>
+
+<p>Run tests with the following command in root directory.</p>
+
+<div class="highlight highlight-source-shell"><pre>$ ./vendor/bin/phpunit</pre></div>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Please see <a href="CONTRIBUTING.md">CONTRIBUTING</a> for details.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>The MIT License (MIT). Please see <a href="LICENSE">License File</a> for more information.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/ShopioLabs/shopioapi">Shopio Api Client</a> is maintained by <a href="https://github.com/ShopioLabs">ShopioLabs</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
