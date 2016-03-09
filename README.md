@@ -29,14 +29,7 @@ session_start();
 if (isset($_GET['code'])) {
     $shopioAuthClient = new ShopioAuthClient($_SESSION['shop'], $apiKey, $secret, ShopioClient::PROTOCOL_HTTP);
     $accessToken = $shopioAuthClient->getAccessToken($_GET['code'], $scope, $_SESSION['page_url']);
-    $shopioClient = new ShopioClient($_SESSION['shop'], $accessToken, ShopioClient::PROTOCOL_HTTP);
-    session_unset();
-
-    //List all brands
-    $brands = $shopioClient->call('brands', 'GET');
-    echo '<pre>';
-    print_r($brands);
-    exit;
+    //Save access_token
 } elseif (isset($_POST['shop'])) {
     // get the URL to the current page
     $pageURL = $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
@@ -48,8 +41,7 @@ if (isset($_GET['code'])) {
 
     $shopioAuthClient = new ShopioAuthClient($_SESSION['shop'], $apiKey, $secret, ShopioClient::PROTOCOL_HTTP);
     $authorizeUrl = $shopioAuthClient->getAuthorizeUrl($scope, $pageURL);
-    header("Location: $authorizeUrl");
-    exit;
+    header("Location: $authorizeUrl");exit;
 }
 ?>
 
