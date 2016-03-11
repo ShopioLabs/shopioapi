@@ -35,7 +35,7 @@ class ShopioAuthClient extends AbstractShopioClient {
      * @param $secret
      * @param string $apiProtocol
      */
-    function __construct($shopSubdomain, $apiKey, $secret, $apiProtocol = self::PROTOCOL_HTTPS)
+    public function __construct($shopSubdomain, $apiKey, $secret, $apiProtocol = self::PROTOCOL_HTTPS)
     {
         $this->setApiKey($apiKey);
         $this->setSecret($secret);
