@@ -55,7 +55,7 @@ abstract class AbstractShopioClient {
      * @param RequestException $requestException
      * @return string
      */
-    protected function getHumanReadableErrorMessage(RequestException $requestException){
+    protected function getPrettyErrorMessage(RequestException $requestException){
         if(!$requestException->hasResponse()){
             throw $requestException;
         }

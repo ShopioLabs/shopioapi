@@ -136,7 +136,7 @@ class ShopioClient extends AbstractShopioClient
                     throw new \InvalidArgumentException("Unsupported HTTP method");
             }
         }catch (RequestException $requestException){
-            throw new ShopioClientException($this->getHumanReadableErrorMessage($requestException));
+            throw new ShopioClientException($this->getPrettyErrorMessage($requestException));
         }
 
         $response = json_decode($response->getBody(), true);

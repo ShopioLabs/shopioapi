@@ -72,7 +72,7 @@ class ShopioAuthClient extends AbstractShopioClient {
             $client = new Client();
             $response = $client->get($url);
         } catch (RequestException $requestException) {
-            throw new ShopioClientException($this->getHumanReadableErrorMessage($requestException));
+            throw new ShopioClientException($this->getPrettyErrorMessage($requestException));
         }
 
         $tokenInfo = json_decode($response->getBody(), true);
